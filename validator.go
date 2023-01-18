@@ -60,7 +60,7 @@ func ValidateJWT(c *gin.Context) {
 
 			expired := isExpired()
 			if expired {
-				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Token was Expired"})
+				c.AbortWithStatusJSON(http.StatusUnauthorized, gin.H{"message": "Token Expired"})
 			} else {
 				c.Next()
 			}

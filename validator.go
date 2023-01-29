@@ -1,7 +1,6 @@
 package validator
 
 import (
-	"fmt"
 	"net/http"
 	"os"
 	"strings"
@@ -21,11 +20,8 @@ func isExpired() bool {
 
 	status := false
 	now := time.Now()
-	exp := fmt.Sprintf("%v", payload["exp"])
-	expDate, error := time.Parse("2006-01-02T15:04:05Z07:00", exp)
-	if error != nil {
-		status = false
-	}
+	exp := payload["exp"].(int64)
+	expDate := time.Unix(exp, 0)
 
 	if now.After(expDate) {
 		status = true

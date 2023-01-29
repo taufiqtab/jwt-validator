@@ -1,10 +1,8 @@
 package validator
 
 import (
-	"fmt"
 	"net/http"
 	"os"
-	"strconv"
 	"strings"
 	"time"
 
@@ -22,13 +20,9 @@ func isExpired() bool {
 
 	status := false
 	now := time.Now()
-	exp := fmt.Sprint(payload["exp"])
-	expInt, err := strconv.Atoi(exp)
-	if err != nil {
-		panic("error convert str to int")
-	}
+	exp := int64(payload["exp"].(float64))
 
-	expDate := time.Unix(int64(expInt), 0)
+	expDate := time.Unix(exp, 0)
 	if now.After(expDate) {
 		status = true
 	}
